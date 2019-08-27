@@ -2,7 +2,13 @@ SubjectBuilderBlobTrigger - Python
 =========================================
 The subject builder creates a subject lookup table in a cosmos db instance.
 
-### TODO PostcodeSearchBuilder function processing steps
+### Builds
+
+master: [![Build Status](https://dev.azure.com/ofsbeta/discoverUni/_apis/build/status/prod/prod-subject-builder?branchName=master)](https://dev.azure.com/ofsbeta/discoverUni/_build/latest?definitionId=35&branchName=master)
+
+develop: [![Build Status](https://dev.azure.com/ofsbeta/discoverUni/_apis/build/status/pre-prod/pp-subject-builder?branchName=develop)](https://dev.azure.com/ofsbeta/discoverUni/_build/latest?definitionId=32&branchName=develop)
+
+### SubjectBuilder function processing steps
 
 1. Subject builder is triggered when a new blob (subjects) are stored in a storage container. It takes the path to the file and extracts the csv file.
 
