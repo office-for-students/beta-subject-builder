@@ -6,7 +6,6 @@ def column_headers(header_row):
     header_list = header_row.split(",")
 
     try:
-
         valid = True
         if header_list[0] != "code":
             logging.info(f"got in code: {header_list[0]}")

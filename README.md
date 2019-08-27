@@ -33,7 +33,6 @@ Add the following to your local.settings.json:
 | ----------------------------------- | ---------------------- | ------------------------------------------------------------ |
 | FUNCTIONS_WORKER_RUNTIME            | python                 | The programming language the function worker runs on         |
 | AzureWebJobsStorage                 | {retrieve from portal} | The default endpoint to access storage account               |
-| StopEtlPipelineOnWarning            | false                  | Boolean flag to stop function worker on a warning            |
 | AzureCosmosDbUri                    | {retrieve from portal} | The cosmos db uri to access the datastore                    |
 | AzureCosmosDbKey                    | {retrieve from portal} | The connection string in which to connect to the datastore   |
 | DatabaseThroughput                  | 400                    | The throughput (RU/s) for subjects collection                |

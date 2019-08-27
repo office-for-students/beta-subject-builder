@@ -8,24 +8,16 @@ from . import models
 
 
 def build_collection(url, api_key, throughput, db_id, collection_id):
-
-    try:
         collection = Collection(url, api_key, throughput, db_id, collection_id)
 
         collection.delete_if_already_exists()
         collection.create()
-    except Exception:
-        raise
 
 
 def load_collection(url, api_key, db_id, collection_id, rows):
+        loader = Loader(url, api_key, db_id, collection_id, rows)
 
-    try:
-        load = Loader(url, api_key, db_id, collection_id, rows)
-
-        load.subject_documents()
-    except Exception:
-        raise
+        loader.load_subject_documents()
 
 
 class Collection:
@@ -83,12 +75,12 @@ class Collection:
                     f"collection already exists by the name of {self.collection_id}\nLikely a race condition with another instance?"
                 )
                 raise
-            else:
-                logging.exception(
-                    f"unexpected error creating collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}",
-                    exc_info=True,
-                )
-                raise
+
+            logging.exception(
+                f"unexpected error creating collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}",
+                exc_info=True,
+            )
+            raise
 
 
 class Loader:
@@ -105,7 +97,7 @@ class Loader:
         self.collection_id = collection_id
         self.rows = rows
 
-    def subject_documents(self):
+    def load_subject_documents(self):
         subject_count = 0
         for row in self.rows:
             subject_count += 1

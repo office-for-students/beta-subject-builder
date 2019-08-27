@@ -5,7 +5,7 @@ import csv
 
 import azure.functions as func
 
-from . import validate, database
+from . import validate, database, exceptions
 
 
 def main(subjectblob: func.InputStream):
