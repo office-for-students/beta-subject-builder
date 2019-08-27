@@ -44,7 +44,7 @@ def main(subjectblob: func.InputStream):
 
         # delete and recreate collection
         database.build_collection(
-            cosmosdb_uri, cosmosdb_key, throughput, db_id, collection_id
+            cosmosdb_uri, cosmosdb_key, int(throughput), db_id, collection_id
         )
 
         # add subject docs to new collection
