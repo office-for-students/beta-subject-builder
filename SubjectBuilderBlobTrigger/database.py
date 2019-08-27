@@ -27,8 +27,10 @@ def load_collection(url, api_key, db_id, collection_id, rows):
     except Exception:
         raise
 
-class Collection():
+
+class Collection:
     """Creates or overwrites existing collection"""
+
     def __init__(self, cosmosdb_uri, cosmos_key, throughput, db_id, collection_id):
 
         master_key = "masterKey"
@@ -48,9 +50,14 @@ class Collection():
 
         except errors.HTTPFailure as e:
             if e.status_code == 404:
-                logging.warning(f"no collection to delete by the name of {self.collection_id}")
+                logging.warning(
+                    f"no collection to delete by the name of {self.collection_id}"
+                )
             else:
-                logging.exception(f'unexpected error deleting collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}', exc_info=True)
+                logging.exception(
+                    f"unexpected error deleting collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}",
+                    exc_info=True,
+                )
                 raise
 
     def create(self):
@@ -60,23 +67,31 @@ class Collection():
                 "id": self.collection_id,
                 "partitionKey": {
                     "paths": ["/id"],
-                    "kind": documents.PartitionKind.Hash
-                }
+                    "kind": documents.PartitionKind.Hash,
+                },
             }
 
-            options = { "offerThroughput": self.throughput }
+            options = {"offerThroughput": self.throughput}
 
-            self.cosmos_db_client.CreateContainer(database_link, collection_definition, options)
+            self.cosmos_db_client.CreateContainer(
+                database_link, collection_definition, options
+            )
 
         except errors.HTTPFailure as e:
             if e.status_code == 409:
-                logging.exception(f"collection already exists by the name of {self.collection_id}\nLikely a race condition with another instance?")
+                logging.exception(
+                    f"collection already exists by the name of {self.collection_id}\nLikely a race condition with another instance?"
+                )
                 raise
             else:
-                logging.exception(f'unexpected error creating collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}', exc_info=True)
+                logging.exception(
+                    f"unexpected error creating collection\ndatabase: {self.db_id}\ncollection: {self.collection_id}",
+                    exc_info=True,
+                )
                 raise
 
-class Loader():
+
+class Loader:
     def __init__(self, cosmosdb_uri, cosmos_key, db_id, collection_id, rows):
 
         master_key = "masterKey"
@@ -101,8 +116,10 @@ class Loader():
 
             # Transform row into json object
             subject_doc = models.build_subject_doc(row)
-            
+
             # Send to cosmos db
             self.cosmos_db_client.CreateItem(self.collection_link, subject_doc)
 
-        logging.info(f"loaded {subject_count - 1} into {self.collection_id} collection in {self.db_id} database")
+        logging.info(
+            f"loaded {subject_count - 1} into {self.collection_id} collection in {self.db_id} database"
+        )

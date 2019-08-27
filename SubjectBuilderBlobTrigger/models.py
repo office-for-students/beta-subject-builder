@@ -1,6 +1,7 @@
 import datetime
 import uuid
 
+
 def build_subject_doc(subject_list):
 
     doc = {
@@ -9,7 +10,7 @@ def build_subject_doc(subject_list):
         "english_name": subject_list[1],
         "level": int(subject_list[2]),
         "updated_at": datetime.datetime.utcnow().isoformat(),
-        "welsh_name": subject_list[3]
+        "welsh_name": subject_list[3],
     }
 
     return doc

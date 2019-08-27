@@ -3,8 +3,8 @@ import logging
 
 def column_headers(header_row):
     logging.info(f"Validating header row, headers: {header_row}")
-    header_list = header_row.split(',')
-    
+    header_list = header_row.split(",")
+
     valid = True
     if header_list[0] != "code":
         logging.info(f"got in code: {header_list[0]}")
